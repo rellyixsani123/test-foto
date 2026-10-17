@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page - Bootstrap Darkly</title>
+    <!-- Memuat font Lato dari Google Fonts -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* VARIABEL TEMA ALA BOOTSTRAP DARKLY */
+        :root {
+            --bs-body-bg: #222;
+            --bs-body-color: #dee2e6;
+            --window-bg: #303030;
+            --top-bar-bg: #2b2b2b;
+            --top-bar-text: #fff;
+            --main-bg: #222;
+            --left-bg: #375a7f; /* Primary Bootstrap Darkly */
+            --right-bg: #444;
+            --curve-bg: #222;
+            --card-bg: #303030;
+            --card-shadow: rgba(0, 0, 0, 0.5);
+            --content-title: #fff;
+            --text-color: #dee2e6;
+            --link-color: #00bc8c;
+            --register-box-bg: #2b2b2b;
+            --input-bg: #fff;
+            --input-border: #444;
+            --input-text: #303030;
+            --btn-bg: #00bc8c;
+            --btn-hover-bg: #009670;
+            --btn-border: #00bc8c;
+            --btn-text: #fff;
+            --logo-color: #00bc8c;
+            --grid-color: #375a7f;
+        }
+
+        /* LIGHT MODE (Jika ingin dibalik / mode terang opsional) */
+        [data-theme="light"] {
+            --bs-body-bg: #f8f9fa;
+            --bs-body-color: #212529;
+            --window-bg: #ffffff;
+            --top-bar-bg: #f1f3f5;
+            --top-bar-text: #212529;
+            --main-bg: #f8f9fa;
+            --left-bg: #375a7f;
+            --right-bg: #ced4da;
+            --curve-bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --card-shadow: rgba(0, 0, 0, 0.15);
+            --content-title: #212529;
+            --text-color: #212529;
+            --link-color: #00bc8c;
+            --register-box-bg: #f1f3f5;
+            --input-bg: #fff;
+            --input-border: #ced4da;
+            --input-text: #212529;
+            --btn-bg: #00bc8c;
+            --btn-hover-bg: #009670;
+            --btn-border: #00bc8c;
+            --btn-text: #fff;
+            --logo-color: #375a7f;
+            --grid-color: #adb5bd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Lato, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--bs-body-bg);
+            color: var(--bs-body-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* WINDOW */
+        .window {
+            width: 920px;
+            height: 490px;
+            background: var(--window-bg);
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.375rem;
+            box-shadow: 0 1rem 3rem var(--card-shadow);
+            border: 1px solid var(--input-border);
+        }
+
+        /* TOP BAR */
+        .top-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 38px;
+            background: var(--top-bar-bg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15px;
+            color: var(--top-bar-text);
+            font-size: 14px;
+            font-weight: 700;
+            z-index: 10;
+            border-bottom: 1px solid var(--input-border);
+        }
+
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .java-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 7px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        /* THEME TOGGLE BUTTON */
+        .theme-toggle {
+            background: transparent;
+            border: 1px solid var(--input-border);
+            border-radius: 0.25rem;
+            padding: 2px 8px;
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--top-bar-text);
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* MAIN */
+        .main {
+            position: absolute;
+            top: 38px;
+            left: 0;
+            width: 100%;
+            height: calc(100% - 38px);
+            background: var(--main-bg);
+        }
+
+        /* LEFT BACKGROUND */
+        .left-background {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 47%;
+            height: 100%;
+            background: var(--left-bg);
+        }
+
+        /* RIGHT BACKGROUND */
+        .right-background {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 22%;
+            height: 100%;
+            background: var(--right-bg);
+        }
+
+        /* CURVE */
+        .curve {
+            position: absolute;
+            width: 380px;
+            height: 380px;
+            background: var(--curve-bg);
+            border-radius: 50%;
+            left: 43%;
+            top: 215px;
+        }
+
+        /* DECORATION */
+        .decoration {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            width: 270px;
+            height: 45px;
+            border-top: 3px solid var(--grid-color);
+        }
+
+        .decoration::before {
+            content: "";
+            position: absolute;
+            left: 5px;
+            top: 15px;
+            width: 120px;
+            height: 20px;
+            border-top: 2px solid var(--grid-color);
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+
+        .decoration::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 5px;
+            width: 80px;
+            height: 15px;
+            border-bottom: 2px solid var(--grid-color);
+        }
+
+        /* BOOK CARD */
+        .book-card {
+            position: absolute;
+            left: 120px;
+            top: 95px;
+            width: 250px;
+            height: 320px;
+            background: var(--card-bg);
+            border-radius: 0.375rem;
+            box-shadow: 0 0.5rem 1rem var(--card-shadow);
+            border: 1px solid var(--input-border);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* BOOK */
+        .book {
+            position: relative;
+            width: 210px;
+            height: 180px;
+            transform: rotate(-7deg);
+        }
+
+        .book-left,
+        .book-right {
+            position: absolute;
+            bottom: 0;
+            width: 105px;
+            height: 145px;
+            background: linear-gradient(
+                to right,
+                var(--right-bg),
+                var(--card-bg),
+                var(--right-bg)
+            );
+            border: 1px solid var(--input-border);
+        }
+
+        .book-left {
+            left: 0;
+            transform: skewY(8deg);
+            border-radius: 4px 0 0 4px;
+        }
+
+        .book-right {
+            right: 0;
+            transform: skewY(-8deg);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .book-center {
+            position: absolute;
+            left: 100px;
+            bottom: 0;
+            width: 10px;
+            height: 150px;
+            background: var(--grid-color);
+            z-index: 3;
+        }
+
+        /* PAGE LINES */
+        .page-line {
+            position: absolute;
+            width: 70px;
+            height: 1px;
+            background: var(--input-border);
+            left: 15px;
+        }
+
+        .line1 { top: 45px; }
+        .line2 { top: 65px; }
+        .line3 { top: 85px; }
+        .line4 { top: 105px; }
+
+        .right-lines {
+            left: auto;
+            right: 15px;
+        }
+
+        /* BUTTERFLY */
+        .butterfly {
+            position: absolute;
+            top: 98px;
+            left: 112px;
+            font-size: 58px;
+            transform: rotate(-15deg);
+            opacity: 0.75;
+        }
+
+        /* RIGHT CONTENT */
+        .content {
+            position: absolute;
+            right: 40px;
+            top: 65px;
+            width: 390px;
+            text-align: center;
+        }
+
+        .content h1 {
+            font-size: 2.2rem;
+            color: var(--content-title);
+            margin-bottom: 2px;
+            font-weight: 700;
+        }
+
+        .login-text {
+            font-size: 0.95rem;
+            color: var(--text-color);
+            margin-bottom: 15px;
+        }
+
+        .login-text a {
+            color: var(--link-color);
+            font-weight: 700;
+            text-decoration: underline;
+        }
+
+        .login-text a:hover {
+            color: #009670;
+        }
+
+        /* FORM BOX */
+        .register-box {
+            width: 370px;
+            min-height: 220px;
+            background: var(--register-box-bg);
+            border-radius: 0.375rem;
+            margin: auto;
+            padding: 25px 25px 20px;
+            box-shadow: 0 0.25rem 0.5rem var(--card-shadow);
+            border: 1px solid var(--input-border);
+            text-align: left;
+        }
+
+        /* FORM */
+        .form-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .form-row label {
+            width: 90px;
+            font-size: 0.95rem;
+            color: var(--text-color);
+            font-weight: 700;
+        }
+
+        .form-row input[type="text"],
+        .form-row input[type="password"] {
+            flex: 1;
+            height: 36px;
+            border: var(--bs-border-width, 1px) solid var(--input-border);
+            background: var(--input-bg);
+            color: var(--input-text);
+            padding: 0.375rem 0.75rem;
+            font-size: 0.95rem;
+            border-radius: 0.375rem;
+            outline: none;
+        }
+
+        .form-row input:focus {
+            border-color: #879cb2;
+            box-shadow: 0 0 0 0.25rem rgba(55, 90, 127, 0.25);
+        }
+
+        /* SHOW PASSWORD */
+        .show-password {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+            font-size: 0.9rem;
+            color: var(--text-color);
+            cursor: pointer;
+            padding-left: 90px;
+        }
+
+        .show-password input {
+            width: 1em;
+            height: 1em;
+            margin-right: 8px;
+            cursor: pointer;
+            accent-color: #00bc8c;
+        }
+
+        /* BUTTON */
+        .button-area {
+            text-align: right;
+            margin-top: 15px;
+        }
+
+        .register-button {
+            padding: 0.375rem 0.75rem;
+            border: 1px solid var(--btn-border);
+            border-radius: 0.375rem;
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.15s ease-in-out;
+        }
+
+        .register-button:hover {
+            background: var(--btn-hover-bg);
+        }
+
+        /* LOGO */
+        .book-logo {
+            position: absolute;
+            right: 28px;
+            top: 13px;
+            color: var(--logo-color);
+            font-family: Georgia, serif;
+            font-size: 24px;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        .book-logo span {
+            font-size: 26px;
+        }
+
+        /* GRID */
+        .grid {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 235px;
+            height: 145px;
+            background-image:
+                linear-gradient(var(--grid-color) 2px, transparent 2px),
+                linear-gradient(90deg, var(--grid-color) 2px, transparent 2px);
+            background-size: 22px 22px;
+            opacity: 0.25;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 950px) {
+            .window { width: 95%; }
+        }
+
+        @media (max-width: 750px) {
+            body {
+                align-items: flex-start;
+                padding-top: 20px;
+            }
+            .window { height: 720px; }
+            .left-background { width: 100%; height: 48%; }
+            .right-background { width: 100%; height: 52%; top: 48%; }
+            .book-card {
+                left: 50%;
+                top: 25px;
+                transform: translateX(-50%);
+                width: 230px;
+                height: 240px;
+            }
+            .content {
+                top: 310px;
+                right: 50%;
+                transform: translateX(50%);
+                width: 95%;
+            }
+            .register-box { width: 95%; max-width: 370px; }
+            .curve { display: none; }
+        }
+    </style>
+</head>
+<body data-bs-theme="dark">
+
+    <div class="window">
+
+        <!-- TOP BAR -->
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <div class="java-icon">☕</div>
+                <span>Register Page</span>
+            </div>
+            <!-- TOMBOL TOGGLE THEME -->
+            <button class="theme-toggle" id="themeToggle">☀️ Mode Terang</button>
+        </div>
+
+        <div class="main">
+            <div class="left-background"></div>
+            <div class="right-background"></div>
+            <div class="curve"></div>
+            <div class="decoration"></div>
+
+            <!-- BOOK -->
+            <div class="book-card">
+                <div class="butterfly">🦋</div>
+                <div class="book">
+                    <div class="book-left">
+                        <div class="page-line line1"></div>
+                        <div class="page-line line2"></div>
+                        <div class="page-line line3"></div>
+                        <div class="page-line line4"></div>
+                    </div>
+                    <div class="book-center"></div>
+                    <div class="book-right">
+                        <div class="page-line line1 right-lines"></div>
+                        <div class="page-line line2 right-lines"></div>
+                        <div class="page-line line3 right-lines"></div>
+                        <div class="page-line line4 right-lines"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="book-logo">
+                <span>📖</span> Buku..
+            </div>
+
+            <div class="grid"></div>
+
+            <!-- CONTENT -->
+            <div class="content">
+                <h1>Register</h1>
+                <p class="login-text">
+                    Already have an account?
+                    <a href="#">login</a>
+                </p>
+
+                <!-- FORM -->
+                <div class="register-box">
+                    <form action="register.php" method="POST">
+                        <div class="form-row">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" name="username" required>
+                        </div>
+
+                        <div class="form-row">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" required>
+                        </div>
+
+                        <label class="show-password">
+                            <input type="checkbox" id="showPassword">
+                            <span>Tampilkan password</span>
+                        </label>
+
+                        <div class="button-area">
+                            <button type="submit" class="register-button">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Toggle Show/Hide Password
+        const showPassword = document.getElementById("showPassword");
+        const password = document.getElementById("password");
+
+        showPassword.addEventListener("change", function () {
+            if (this.checked) {
+                password.type = "text";
+            } else {
+                password.type = "password";
+            }
+        });
+
+        // Toggle Dark Mode & Light Mode (Bootstrap Darkly Theme Style)
+        const themeToggle = document.getElementById("themeToggle");
+        const bodyElement = document.body;
+
+        // Default menggunakan tema Darkly (dark)
+        const savedTheme = localStorage.getItem("bs-theme") || "dark";
+        bodyElement.setAttribute("data-bs-theme", savedTheme);
+        themeToggle.textContent = savedTheme === "dark" ? "☀️ Mode Terang" : "🌙 Mode Gelap";
+
+        themeToggle.addEventListener("click", function () {
+            let currentTheme = bodyElement.getAttribute("data-bs-theme");
+            
+            if (currentTheme === "dark") {
+                bodyElement.setAttribute("data-bs-theme", "light");
+                localStorage.setItem("bs-theme", "light");
+                themeToggle.textContent = "🌙 Mode Gelap";
+            } else {
+                bodyElement.setAttribute("data-bs-theme", "dark");
+                localStorage.setItem("bs-theme", "dark");
+                themeToggle.textContent = "☀️ Mode Terang";
+            }
+        });
+    </script>
+
+</body>
+</html>
